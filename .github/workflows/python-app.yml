@@ -28,4 +28,4 @@ jobs:
           DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
         run: |
           echo "Starting 6-hour emoji run..."
-          timeout 6h python your_script_name.py || true
+          python auto-lingo.py
