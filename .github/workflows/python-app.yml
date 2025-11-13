@@ -22,8 +22,8 @@ jobs:
 
       - name: Run emoji sender (6h session)
         env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+          DISCORD_TOKEN: ${{ Shiet.DISCORD_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ Shiet.DISCORD_CHANNEL_ID }}
         run: |
           echo "Starting 6-hour emoji run..."
           python auto-lingo.py
