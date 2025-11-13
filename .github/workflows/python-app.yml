@@ -1,29 +1,29 @@
-name: Run Script 12pm
+name: Auto Emoji Sender (24h Loop)
 
 on:
-  workflow_dispatch:
-
+  workflow_dispatch:  # run manually
   schedule:
-    - cron: '0 */6 * * *'
-    
-permissions:
-  contents: read
+    - cron: "0 */6 * * *"  # auto-run every 6 hours (0:00, 6:00, 12:00, 18:00 UTC)
 
 jobs:
-  build:
-
+  send-emoji:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.12.7
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.12.7"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests rich bs4
-    - name: Run now
-      run: |
-        python auto-lingo.py
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run emoji sender (6h session)
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          echo "Starting 6-hour emoji run..."
+          python auto-lingo.py
