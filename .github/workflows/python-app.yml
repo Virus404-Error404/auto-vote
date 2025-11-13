@@ -1,13 +1,15 @@
 name: Auto Emoji Sender (24h Loop)
 
 on:
-  workflow_dispatch:  # run manually
+  workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"  # auto-run every 6 hours (0:00, 6:00, 12:00, 18:00 UTC)
+    - cron: "0 */6 * * *"
 
 jobs:
   send-emoji:
     runs-on: ubuntu-latest
+    environment: Shiet
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -15,15 +17,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.12.7'
 
       - name: Install dependencies
         run: pip install requests
 
       - name: Run emoji sender (6h session)
         env:
-          DISCORD_TOKEN: ${{ Shiet.DISCORD_TOKEN }}
-          DISCORD_CHANNEL_ID: ${{ Shiet.DISCORD_CHANNEL_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
         run: |
           echo "Starting 6-hour emoji run..."
-          python auto-lingo.py
+          timeout 6h python your_script_name.py || true
